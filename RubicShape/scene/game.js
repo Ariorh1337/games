@@ -12,6 +12,9 @@ export default class Game extends Phaser.Scene {
 
     init() {
         window.scene = this;
+
+        this.UI = this.scene.get("UI");
+        this.UI.scene.start();
     }
 
     create() {
@@ -61,7 +64,8 @@ export default class Game extends Phaser.Scene {
     }
 
     gameOver() {
-        this.scene.manager.stop(this.scene.key);
+        this.scene.manager.stop("UI");
+        this.scene.manager.stop("Game");
         this.scene.manager.start("Menu");
     }
 }

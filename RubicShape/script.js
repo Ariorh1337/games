@@ -1,5 +1,6 @@
 import Menu from "./scene/menu.js";
 import Game from "./scene/game.js";
+import UI from "./scene/ui.js";
 
 const config = {
     type: Phaser.AUTO,
@@ -14,7 +15,11 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [Game, Menu]
+    scene: [
+        Menu, 
+        Game, 
+        UI
+    ]
 };
 
 const game = new Phaser.Game(config);

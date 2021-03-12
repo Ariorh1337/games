@@ -1,4 +1,4 @@
-import Player from "../actor/player.js";
+import over from "/libs/ui/over.js";
 
 export default class Menu extends Phaser.Scene {
     constructor() {
@@ -23,13 +23,8 @@ export default class Menu extends Phaser.Scene {
             fontStyle: "bold",
             color: "#000"
         }).setOrigin(0.5).setInteractive();
+        over.scale(play, 1.2, 1);
 
-        play.on("pointerover", () => {
-            play.setScale(1.2);
-        })
-        play.on("pointerout", () => {
-            play.setScale(1);
-        })
         play.on("pointerdown", () => {
             this.scene.manager.start("Game");
         })

@@ -7,15 +7,17 @@ export default class Player {
             x, 
             y, 
             angle: 0,
-            radius: 25
+            radius: 25,
+            hp_max: 1000,
+            hp: 1000
         };
         this.create(scene);
     }
 
     create(scene) {
-        const { x, y, radius } = this.settings;
+        const { x, y, radius, hp_max, hp } = this.settings;
 
-        const body = scene.add.circle(0, 0, radius, 0xff66ff).setOrigin(0.5);
+        const body = scene.add.circle(0, 0, radius, 0xff66ff).setOrigin(0.5).setScale(hp / hp_max);
         body.key = "player.body";
         body.parent = this;
 
@@ -40,12 +42,23 @@ export default class Player {
             yoyo: false
         });
 
+        const bodySize = scene.tweens.add({
+            targets: body,
+            scaleX: `-=0.1`,
+            scaleY: `-=0.1`,
+            ease: 'Elastic',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
+            duration: 2000,
+            repeat: 0,            // -1: infinity, 0: no repeat
+            yoyo: false
+        });
+
         this.sprites = {
             body,
             shield
         }
         this.tween = {
-            shield: shieldAlpha
+            shield: shieldAlpha,
+            body: bodySize
         }
         this.container = player;
     }
@@ -89,7 +102,20 @@ export default class Player {
     }
 
     playerHit() {
+        this.settings.hp -=  100;
+        const { hp_max, hp } = this.settings;
 
+        this.tween.body.data.forEach(data => {
+            if (data.key === "scaleX" || data.key === "scaleY") {
+                data.start = (hp + 100) / hp_max;
+                data.end= hp / hp_max;
+            }
+        })
+        this.tween.body.restart();
+        
+        this.scene.cameras.main.shake(250,0.01,0.01);
+
+        if (this.settings.hp <= 0) this.scene.gameOver();
     }
 
     makePosFromAngle() {
