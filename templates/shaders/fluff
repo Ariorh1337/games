@@ -1,0 +1,26 @@
+// SHAT
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform float time;
+uniform vec2 resolution;
+
+#define t (time)
+
+
+void main( void ) {
+	vec2 uv = (gl_FragCoord.xy-.5*resolution.xy) /resolution.y;
+	
+	float b = 0.0;
+	float size = 0.1;
+	float blur = 0.3;
+	
+    	
+	for(float i=5.0;i<100.0;i++){
+		size += (i/100000.0);
+		b +=  smoothstep(size, size-blur, length(uv - (vec2(sin(t*1./+i+20./sin(i)), cos(t*1./+i+60./cos(i))))));
+	}
+	
+	gl_FragColor = vec4( b/7.,b/3.,b/4., 1.0 );
+}
