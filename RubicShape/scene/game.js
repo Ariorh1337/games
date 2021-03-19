@@ -1,4 +1,4 @@
-import Player from "../actor/player.js";
+import Body from "../actor/body.js";
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -22,7 +22,7 @@ export default class Game extends Phaser.Scene {
        
         const background = this.background = this.add.rectangle(0, 0, width, height, 0x838383).setOrigin(0);
 
-        const player = this.player = new Player(this, width / 2, height / 2);
+        const player = this.player = new Body(this, "player", width / 2, height / 2);
         this.input.on('pointermove', player.move.bind(player));
         this.input.on('pointerup', player.shoot.bind(player));
 
@@ -43,6 +43,7 @@ export default class Game extends Phaser.Scene {
             blendMode: 'SCREEN',
             lifespan: 600,
             gravityY: 0,
+            rotate: { min: 0, max: 360 }
         };
 
         this.particles = {

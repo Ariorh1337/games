@@ -1,5 +1,5 @@
 export default class Bullet {
-    constructor(scene, x, y, x2, y2, angle) {
+    constructor(scene, owner, x, y, x2, y2, angle) {
         this.scene = scene;
         this.prop = {
             color: 0x55aeff,
@@ -7,7 +7,8 @@ export default class Bullet {
             alpha: 1,
             pos: { x, y },
             target: { x2, y2 },
-            angle
+            angle,
+            owner
         }
 
         this.create(scene);
@@ -31,14 +32,19 @@ export default class Bullet {
 
         rect.parent = this;
         this.rect = rect;
+        const owner = this.owner;
 
         const collide = (a, b) => {
             if (a.key === "bullet") a.parent?.destroy();
             if (b.key === "bullet") b.parent?.destroy();
-            if (a.key === "player.shield") a.parent?.shieldHit();
-            if (b.key === "player.shield") b.parent?.shieldHit();
-            if (a.key === "player.body") a.parent?.playerHit();
-            if (b.key === "player.body") b.parent?.playerHit();
+            if (a.key === "player.shield") a.parent?.shieldHit(owner);
+            if (b.key === "player.shield") b.parent?.shieldHit(owner);
+            if (a.key === "player.body") a.parent?.playerHit(owner);
+            if (b.key === "player.body") b.parent?.playerHit(owner);
+            if (a.key === "enemy.shield") a.parent?.shieldHit(owner);
+            if (b.key === "enemy.shield") b.parent?.shieldHit(owner);
+            if (a.key === "enemy.body") a.parent?.playerHit(owner);
+            if (b.key === "enemy.body") b.parent?.playerHit(owner);
         }
 
         scene.physics.add.collider(rect, scene.children.list, collide);

@@ -12,7 +12,8 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 }
+            gravity: { y: 0 },
+            debug: true,
         },
     },
     scene: [
@@ -20,9 +21,9 @@ const config = {
         Game, 
         UI
     ],
-    debug: true,
+    
 };
 
-if (config.debug) window.scenes = Object();
+if (config.physics.arcade.debug) window.scenes = Object();
 
 const game = new Phaser.Game(config);
