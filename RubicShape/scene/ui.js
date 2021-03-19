@@ -12,6 +12,8 @@ export default class UI extends Phaser.Scene {
 
     init() {
         this.gameScene = this.scene.get("Game");
+
+        if (this.game.config.debug) window.scenes.ui = this;
     }
 
     create() {

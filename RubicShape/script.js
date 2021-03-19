@@ -13,13 +13,16 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }
-        }
+        },
     },
     scene: [
         Menu, 
         Game, 
         UI
-    ]
+    ],
+    debug: true,
 };
+
+if (config.debug) window.scenes = Object();
 
 const game = new Phaser.Game(config);
