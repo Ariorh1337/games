@@ -19,20 +19,19 @@ export default class Body {
     create(scene) {
         const { x, y, radius, hp_max, hp, type } = this.settings;
 
-        const body = scene.add.circle(0, 0, radius, 0xff66ff).setOrigin(0.5).setScale(hp / hp_max);
+        const body = scene.add.circle(x, y, radius, 0xff66ff).setOrigin(0.5).setScale(hp / hp_max);
         body.key = `${type}.body`;
         body.parent = this;
+
+        const bodyPhysic = scene.matter.add.circle(x, y, radius, { ignoreGravity: true });
+        scene.matter.add.worldConstraint(bodyPhysic, 0, 1, { pointA: { x, y }});
 
         const shield = scene.add.rectangle(body.x -  body.width, body.y, 10, body.height, 0x55aeff).setOrigin(0.5);
         shield.key = `${type}.shield`;
         shield.parent = this;
 
-        const player = scene.add.container(x, y, [body, shield]);
-        scene.physics.add.existing(body);
-        scene.physics.add.existing(shield);
-
-        body.body.pushable = false;
-        shield.body.pushable = false;
+        const shieldPhysic = scene.matter.add.rectangle(body.x -  body.width, body.y, 10, body.height, { ignoreGravity: true });
+        scene.matter.add.worldConstraint(shieldPhysic, 0, 1, { pointA: { x: body.x -  body.width, y: body.y }});
 
         const shieldAlpha = scene.tweens.add({
             paused: true,
@@ -59,25 +58,38 @@ export default class Body {
             body,
             shield
         }
+        this.physic = {
+            bodyPhysic,
+            shieldPhysic
+        }
         this.tween = {
             body: bodySize,
             shield: shieldAlpha
         }
-        this.container = player;
     }
 
     move(pointer) {
-        const player = this.container;
+        const body = this.sprites.body;
+        const shield = this.sprites.shield;
+        const bodyPhysic = this.physic.bodyPhysic;
+        const shieldPhysic = this.physic.shieldPhysic;
+
         const {x,y} = pointer;
         const rad2deg = (radians) => {
             const pi = Math.PI;
             return radians * (180/pi);
         }
 
-        const radian = Math.atan2(y - player.y, x - player.x);
+        const radian = Math.atan2(y - body.y, x - body.x);
         const degree = rad2deg(radian);
-        
-        player.setAngle(degree);
+
+
+        body.setAngle(degree);
+        shield.setAngle(degree);
+
+        this.scene.matter.body.setAngle(bodyPhysic, radian);
+        this.scene.matter.body.setAngle(shieldPhysic, radian);
+
         this.settings.angle = degree;
         this.settings.radian = radian;
     }

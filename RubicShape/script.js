@@ -4,16 +4,20 @@ import UI from "./scene/ui.js";
 
 const config = {
     type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
     scale: {
-        mode: Phaser.Scale.FIT
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    width: 500,
-    height: 900,
     physics: {
-        default: 'arcade',
-        arcade: {
+        default: 'matter',
+        matter: {
             gravity: { y: 0 },
-            debug: true,
+            debug: {
+                showBody: true,
+                showStaticBody: true
+            }
         },
     },
     scene: [
@@ -24,6 +28,8 @@ const config = {
     resolution: 1,
 };
 
-if (config.physics.arcade.debug) window.scenes = Object();
+//DEBUG
+window.scenes = Object();
+//DEBUG END
 
 const game = new Phaser.Game(config);

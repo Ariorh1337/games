@@ -10,7 +10,10 @@ export default class Menu extends Phaser.Scene {
     }
 
     init() {
-        if (this.game.config.debug) window.scenes.menu = this;
+        //DEBUG
+        window.scenes.menu = this;
+        //DEBUG END
+        
     }
 
     create() {

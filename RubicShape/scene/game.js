@@ -15,7 +15,9 @@ export default class Game extends Phaser.Scene {
         this.UI = this.scene.get("UI");
         this.UI.scene.start();
 
-        if (this.game.config.debug) window.scenes.game = this;
+        //DEBUG
+        window.scenes.game = this;
+        //DEBUG END
     }
 
     create() {
@@ -23,11 +25,11 @@ export default class Game extends Phaser.Scene {
        
         const background = this.background = this.add.rectangle(0, 0, width, height, 0x838383).setOrigin(0);
 
-        const test = this.add.image(
+        const input = this.add.image(
             round(width / 2), 
             round(height / 2), 
             "square"
-        ).setOrigin(0.5).setScale(10).setInteractive();
+        ).setOrigin(0.5).setScale(18).setInteractive();
 
         const player = this.player = new Body(
             this, 
@@ -36,8 +38,8 @@ export default class Game extends Phaser.Scene {
             round(height / 2)
         );
 
-        test.on('pointermove', player.move.bind(player));
-        test.on('pointerup', player.shoot.bind(player));
+        input.on('pointermove', player.move.bind(player));
+        input.on('pointerup', player.shoot.bind(player));
 
         this.createParticles();
     }
