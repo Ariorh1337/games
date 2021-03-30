@@ -21,7 +21,7 @@ const config = {
         Game, 
         UI
     ],
-    
+    resolution: 1,
 };
 
 if (config.physics.arcade.debug) window.scenes = Object();

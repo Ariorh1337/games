@@ -1,4 +1,5 @@
 import Body from "../actor/body.js";
+import round from "../../libs/round.js";
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -22,16 +23,23 @@ export default class Game extends Phaser.Scene {
        
         const background = this.background = this.add.rectangle(0, 0, width, height, 0x838383).setOrigin(0);
 
-        const player = this.player = new Body(this, "player", width / 2, height / 2);
-        this.input.on('pointermove', player.move.bind(player));
-        this.input.on('pointerup', player.shoot.bind(player));
+        const test = this.add.image(
+            round(width / 2), 
+            round(height / 2), 
+            "square"
+        ).setOrigin(0.5).setScale(10).setInteractive();
+
+        const player = this.player = new Body(
+            this, 
+            "player", 
+            round(width / 2), 
+            round(height / 2)
+        );
+
+        test.on('pointermove', player.move.bind(player));
+        test.on('pointerup', player.shoot.bind(player));
 
         this.createParticles();
-
-        this.physics.world.on('worldbounds', function(body) {
-            const bounce = Phaser.Math.Between(0, 1);
-            if (bounce) body.gameObject.parent?.destroy();
-        });
     }
 
     createParticles() {

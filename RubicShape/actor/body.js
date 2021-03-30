@@ -1,4 +1,5 @@
 import Bullet from "./bullet.js";
+import round from "../../libs/round.js";
 
 export default class Body {
     constructor(scene, type, x, y) {
@@ -120,11 +121,11 @@ export default class Body {
     makePosFromAngle() {
         const { x, y, radius, radian, angle} = this.settings;
 
-        const fromX = x + -(radius * 3) * Math.cos(radian);
-        const fromY = y + -(radius * 3) * Math.sin(radian);
+        const fromX = round(x + -(radius * 3) * Math.cos(radian));
+        const fromY = round(y + -(radius * 3) * Math.sin(radian));
 
-        const toX = x + (radius * 9) * Math.cos(radian);
-        const toY = y + (radius * 9) * Math.sin(radian);
+        const toX = round(x + (radius * 9) * Math.cos(radian));
+        const toY = round(y + (radius * 9) * Math.sin(radian));
 
         return {
             fromX,
