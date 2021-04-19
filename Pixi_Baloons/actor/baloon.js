@@ -8,6 +8,7 @@ export default class Baloon {
         this.alive = true;
 
         this.container = new PIXI.Container();
+        this.container.interactive = true;
 
         this.image = this.createBaloon(sheet, frame);
         this.text = this.createBaloonText(word);
@@ -57,23 +58,32 @@ export default class Baloon {
     destroy() {
         this.alive = false;
 
-        this.image.play();
+        this.image.texture = this.image.textures[1];
 
-        this.text.x = -100;
-        this.text.y = -100;
+        this.text.visible = false;
 
         setTimeout(() => {
-            this.image.x = -100;
-            this.image.y = -100;
+            this.image.texture = this.image.textures[0];
+            this.image.visible = false;
         }, 100);
+    }
 
-        //this.parent.explodes.push(this.text.text);
-        //this.parent.addAnswer();
-        //this.parent.sound.play('pop');
+    setStartPos() {
+        this.container.x = this.x;
+        this.container.y = this.y;
     }
 
     setPos(x, y) {
         this.container.x = x;
         this.container.y = y;
+    }
+
+    set onClick (func) {
+        this.container.on('mousedown', () => {
+            if (this.alive) func();
+        });
+        this.container.on('touchstart', () => {
+            if (this.alive) func();
+        });
     }
 }
