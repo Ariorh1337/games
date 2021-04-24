@@ -6,9 +6,9 @@ WEBXR need https, please make sure what you do the steps of the instruction:
 
 NOTES: 
 
-    You will need to install Perl Strawberry instead ActivePerl [link](https://strawberryperl.com/)
+    You will need to install Perl Strawberry instead ActivePerl https://strawberryperl.com/
     Install NASM as admin requared
-    Install VisualStudio C++ [link](https://visualstudio.microsoft.com/ru/vs/features/cplusplus/)
+    You will need to install VisualStudio C++ https://visualstudio.microsoft.com/ru/vs/features/cplusplus/
 
 
 - 2: After you get OpenSSL installed, go into default directory and create `openssl.cnf`
