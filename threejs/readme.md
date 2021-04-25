@@ -91,3 +91,7 @@ Notes:
 
 
 - 4: In same cmd window follow this instruction to generate key and sert: [http-server TLS/SSL](https://www.npmjs.com/package/http-server#tlsssl)
+
+
+### Start
+`http-server -S -C cert.pem`
