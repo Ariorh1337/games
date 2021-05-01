@@ -47,9 +47,9 @@ export default class Controllers {
         const { raycaster } = this;
 
         tempMatrix.identity().extractRotation( controller.matrixWorld );
-
+        console.log(tempMatrix)
         raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
-        raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
+        raycaster.ray.direction.set( 0, 0, 0.00001 ).applyMatrix4( tempMatrix );
 
         return raycaster;
     }
