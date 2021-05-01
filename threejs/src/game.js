@@ -19,13 +19,21 @@ export default class Game {
     }
 
     init() {
+        const scene = this.scene = new THREE.Scene();
+        scene.background = new THREE.Color( 0x808080 );
+
         /*** main HTML container */
         this.canvasContainer = document.createElement( 'div' );
         document.body.appendChild( this.canvasContainer );
 
         /*** Camera */
-        this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 10 );
+        this.camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 10 );
         this.camera.position.set( 0, 1.6, 3 );
+
+        this.charBody = new THREE.Group();
+        this.charBody.position.set( 0,0,0 );
+        scene.add(this.charBody);
+        this.charBody.add(this.camera);
 
         /*** */
         this.renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -82,14 +90,25 @@ export default class Game {
     
             controller.userData.selected = undefined;    
         }
+        controllers.onSelectStart = (event) => {
+            const controller = event.target;
 
+            const raycaster = controllers.getRaycaster(controller);
+
+            const { x, y, z } = raycaster.ray.direction;
+            this.charBody.lookAt(x, 0, z);
+        }
+        controllers.onSelectEnd = (event) => {
+            const controller = event.target;
+        }
+
+        window.test = this.charBody;
         this.controllers = controllers;
-        controllers.addTo( this.scene );
+        controllers.addTo( this.charBody );
     }
 
     initObjects() {
-        const scene = this.scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0x808080 );
+        const scene = this.scene;
 
         /*** Floor */
         const floorGeometry = new THREE.PlaneGeometry( 4, 4 );

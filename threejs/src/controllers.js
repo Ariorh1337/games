@@ -42,6 +42,18 @@ export default class Controllers {
         return raycaster.intersectObjects( groupObjects.children );
     }
 
+    getRaycaster( controller ) {
+        const { tempMatrix, groupObjects } = this.game;
+        const { raycaster } = this;
+
+        tempMatrix.identity().extractRotation( controller.matrixWorld );
+
+        raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
+        raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
+
+        return raycaster;
+    }
+
     intersectObjects() {
         this.list.forEach(controller => {
             // Do not highlight when already selected
