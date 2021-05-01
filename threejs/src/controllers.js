@@ -22,14 +22,10 @@ export default class Controllers {
         this.raycaster = new THREE.Raycaster();
 
         const left = new Controller( this, 0 );
-        left.onSelectStart = this.onSelectStart.bind(this);
-        left.onSelectEnd = this.onSelectEnd.bind(this);
         left.body.add( line.clone() );
         this.list.push( left );
 
         const right = new Controller( this, 1 );
-        right.onSelectStart = this.onSelectStart.bind(this);
-        right.onSelectEnd = this.onSelectEnd.bind(this);
         right.body.add( line.clone() );
         this.list.push( right );
     }
@@ -75,29 +71,28 @@ export default class Controllers {
         }
     }
 
-    onSelectStart( event ) {
-        const controller = event.target;
-        const intersections = this.getIntersections( controller );
-        if ( intersections.length <= 0) return;
-
-        const intersection = intersections[ 0 ];
-        const object = intersection.object;
-        object.material.emissive.b = 1;
-        controller.attach( object );
-
-        controller.userData.selected = object;
+    set onSelectStart (func) {
+        this.list.forEach(controller => {
+            controller.onSelectStart = func;
+        })
     }
 
-    onSelectEnd( event ) {
-        const controller = event.target;
-        if ( controller.userData.selected === undefined ) return;
+    set onSelectEnd (func) {
+        this.list.forEach(controller => {
+            controller.onSelectEnd = func;
+        })
+    }
 
-        const object = controller.userData.selected;
-        object.material.emissive.b = 0;
+    set onSqueezeStart (func) {
+        this.list.forEach(controller => {
+            controller.onSqueezeStart = func;
+        })
+    }
 
-        this.game.groupObjects.attach( object );
-
-        controller.userData.selected = undefined;    
+    set onSqueezeEnd (func) {
+        this.list.forEach(controller => {
+            controller.onSqueezeEnd = func;
+        })
     }
 
     addTo(scene) {
@@ -117,6 +112,8 @@ class Controller {
 
     onSelectStartFunc = () => {};
     onSelectEndFunc = () => {};
+    onSqueezeStartFunc = () => {};
+    onSqueezeEndFunc = () => {};
     
     constructor(controllers, index ) {
         this.controllers = controllers;
@@ -151,5 +148,19 @@ class Controller {
 
         this.onSelectEndFunc = func;
         this.body.addEventListener( 'selectend', this.onSelectEndFunc );
+    }
+
+    set onSqueezeStart (func) {
+        this.body.removeEventListener("squeezestart", this.onSqueezeStartFunc);
+
+        this.onSqueezeStartFunc = func;
+        this.body.addEventListener( 'squeezestart', this.onSqueezeStartFunc );
+    }
+
+    set onSqueezeEnd (func) {
+        this.body.removeEventListener("squeezeend", this.onSqueezeEndFunc);
+
+        this.onSqueezeEndFunc = func;
+        this.body.addEventListener( 'squeezeend', this.onSqueezeEndFunc );
     }
 }

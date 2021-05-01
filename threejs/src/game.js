@@ -57,8 +57,34 @@ export default class Game {
         mouseOrbitControl.update();
 
         /*** Controllers */
-        this.controllers = new Controllers( this );
-        this.controllers.addTo( this.scene );
+        const controllers = new Controllers( this );
+
+        controllers.onSqueezeStart = (event) => {
+            const controller = event.target;
+            const intersections = controllers.getIntersections( controller );
+            if ( intersections.length <= 0) return;
+
+            const intersection = intersections[ 0 ];
+            const object = intersection.object;
+            object.material.emissive.b = 1;
+            controller.attach( object );
+    
+            controller.userData.selected = object;    
+        }
+        controllers.onSqueezeEnd = (event) => {
+            const controller = event.target;
+            if ( controller.userData.selected === undefined ) return;
+    
+            const object = controller.userData.selected;
+            object.material.emissive.b = 0;
+    
+            this.groupObjects.attach( object );
+    
+            controller.userData.selected = undefined;    
+        }
+
+        this.controllers = controllers;
+        controllers.addTo( this.scene );
     }
 
     initObjects() {
