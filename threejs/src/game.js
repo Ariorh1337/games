@@ -98,11 +98,7 @@ export default class Game {
             const { x, y, z } = raycaster.ray.direction;
             this.charBody.lookAt(x, 0, z);
         }
-        controllers.onSelectEnd = (event) => {
-            const controller = event.target;
-        }
 
-        window.test = this.charBody;
         this.controllers = controllers;
         controllers.addTo( this.charBody );
     }

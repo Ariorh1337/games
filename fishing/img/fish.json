@@ -1,0 +1,146 @@
+{
+	"textures": [
+		{
+			"image": "fish.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 820,
+				"h": 68
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "fish2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 136,
+						"h": 66
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 136,
+						"h": 66
+					}
+				},
+				{
+					"filename": "fish3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 136,
+						"h": 66
+					},
+					"frame": {
+						"x": 139,
+						"y": 1,
+						"w": 136,
+						"h": 66
+					}
+				},
+				{
+					"filename": "fish1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 134,
+						"h": 66
+					},
+					"frame": {
+						"x": 277,
+						"y": 1,
+						"w": 134,
+						"h": 66
+					}
+				},
+				{
+					"filename": "fish4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 134,
+						"h": 66
+					},
+					"frame": {
+						"x": 413,
+						"y": 1,
+						"w": 134,
+						"h": 66
+					}
+				},
+				{
+					"filename": "fish5.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 134,
+						"h": 66
+					},
+					"frame": {
+						"x": 549,
+						"y": 1,
+						"w": 134,
+						"h": 66
+					}
+				},
+				{
+					"filename": "fish6.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 145,
+						"h": 69
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 3,
+						"w": 134,
+						"h": 65
+					},
+					"frame": {
+						"x": 685,
+						"y": 1,
+						"w": 134,
+						"h": 65
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c681d548fa157a79edef01703811ca30:c34a64d8c36d99e5b664fe788dcf161a:8d6d90e8f48b9264619fb7c7934eace4$"
+	}
+}
