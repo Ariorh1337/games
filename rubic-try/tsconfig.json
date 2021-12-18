@@ -1,22 +1,42 @@
 {
-  "compilerOptions": {
-    "target": "ES2015",
-    "module": "ES2015",
-
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-
-    "allowJs": true,
-    "allowUnreachableCode": false,
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "strictPropertyInitialization": false,
-
-    "moduleResolution": "node",
-    "lib": ["dom", "esnext"]
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+	"compilerOptions": {
+		"target": "ES6",
+        "noErrorTruncation": true,
+        "importHelpers": false,
+		"removeComments": true,
+		"module": "esnext",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true,
+		"allowUnreachableCode": false,
+		"noImplicitAny": false,
+		"sourceMap": true,
+		"strictPropertyInitialization": false,
+		"alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "incremental": true,
+		"noImplicitReturns": true,
+		"baseUrl": "./src",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"lib": [
+			"dom",
+			"esnext"
+		],
+		"types": [
+            "node",
+            "phaser"
+        ],
+	},
+	"include": [
+		"src/**/*",
+		"typings/*"
+	],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	]
 }

@@ -1,30 +1,44 @@
-import 'phaser'
-import MainScene from './scenes/mainScene'
-import PreloadScene from './scenes/preloadScene'
+import "phaser";
+import "phaser/plugins/spine/dist/SpinePlugin";
 
-const DEFAULT_WIDTH = 1280
-const DEFAULT_HEIGHT = 720
+import Boot from "./scenes/Boot";
+import Menu from "./scenes/Menu";
+
+
+const DEFAULT_WIDTH = 720;
+const DEFAULT_HEIGHT = 1280;
 
 const config = {
-  type: Phaser.AUTO,
-  backgroundColor: '#ffffff',
-  scale: {
-    parent: 'phaser-game',
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT
-  },
-  scene: [PreloadScene, MainScene],
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: false,
-      gravity: { y: 400 }
-    }
-  }
-}
+    type: Phaser.WEBGL,
+    backgroundColor: "#ffffff",
+    scale: {
+        parent: "phaser-game",
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT,
+    },
+    scene: [Boot, Menu],
+    physics: {
+        default: "arcade",
+        arcade: {
+            debug: false,
+            gravity: { x: 0, y: 0 },
+            fps: 10,
+        },
+    },
+    resolution: 1,
+    plugins: {
+        scene: [
+            {
+                key: "SpinePlugin",
+                plugin: window.SpinePlugin,
+                mapping: "spine",
+            },
+        ],
+    },
+};
 
-window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
-})
+window.addEventListener("load", () => {
+    const game = new Phaser.Game(config);
+});
